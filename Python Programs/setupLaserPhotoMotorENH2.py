@@ -9,15 +9,15 @@ save_dir = os.path.join(home_dir, "Desktop")
 
 picam2 = Picamera2()
 
-# Sensor + ROI parameters (Camera Module v3)
-SENSOR_WIDTH = 4056
-SENSOR_HEIGHT = 3040
+# Sensor + ROI parameters (Camera Module v2 / IMX219)
+SENSOR_WIDTH = 3280
+SENSOR_HEIGHT = 2464
 
-ROI_SIZE = 1000        # sensor pixels
-OUTPUT_SIZE = 500      # saved image size
+ROI_SIZE = 1000        # sensor pixels (true ROI)
+OUTPUT_SIZE = 500      # saved image size (2× oversampled)
 
-ROI_X = (SENSOR_WIDTH - ROI_SIZE) // 2   # 1528
-ROI_Y = (SENSOR_HEIGHT - ROI_SIZE) // 2  # 1020
+ROI_X = (SENSOR_WIDTH - ROI_SIZE) // 2   # 1140
+ROI_Y = (SENSOR_HEIGHT - ROI_SIZE) // 2  # 732
 
 picam2.configure(
     picam2.create_still_configuration(
@@ -35,7 +35,7 @@ picam2.set_controls({
     "AwbEnable": False
 })
 
-print("Camera initialized with true sensor ROI.")
+print("Camera initialized with true sensor ROI (IMX219).")
 
 # -------------------- GPIO Setup --------------------
 GPIO.setmode(GPIO.BCM)

@@ -10,8 +10,8 @@ save_dir = os.path.join(home_dir, "Desktop")
 
 picam2 = Picamera2()
 
-# Full sensor resolution (Camera Module v3)
-FULL_RES = (4056, 3040)
+# Full sensor resolution (Camera Module v2 / IMX219)
+FULL_RES = (3280, 2464)
 CROP_SIZE = 500
 
 picam2.configure(
@@ -22,10 +22,10 @@ picam2.configure(
 
 picam2.start()
 
-# Lock exposure (important for fluorescence / timelapse)
 picam2.set_controls({
     "ExposureTime": 10000,
-    "AnalogueGain": 1.0
+    "AnalogueGain": 1.0,
+    "AwbEnable": False
 })
 
 # -------------------- GPIO Setup --------------------
