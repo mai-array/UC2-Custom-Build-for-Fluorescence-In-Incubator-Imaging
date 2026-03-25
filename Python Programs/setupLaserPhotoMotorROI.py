@@ -13,15 +13,15 @@ picam2 = Picamera2()
 SENSOR_WIDTH = 3280
 SENSOR_HEIGHT = 2464
 
-ROI_SIZE = 1000        # sensor pixels (true ROI)
-OUTPUT_SIZE = 500      # saved image size (2× oversampled)
+ROI_SIZE = 2500  # true sensor ROI, full resolution
 
-ROI_X = (SENSOR_WIDTH - ROI_SIZE) // 2   # 1140
-ROI_Y = (SENSOR_HEIGHT - ROI_SIZE) // 2  # 732
+ROI_X = (SENSOR_WIDTH - ROI_SIZE) // 2
+ROI_Y = (SENSOR_HEIGHT - ROI_SIZE) // 2
 
+# Configure the camera with full-res ROI
 picam2.configure(
     picam2.create_still_configuration(
-        main={"size": (OUTPUT_SIZE, OUTPUT_SIZE)}
+        main={"size": (ROI_SIZE, ROI_SIZE)}
     )
 )
 
@@ -35,7 +35,7 @@ picam2.set_controls({
     "AwbEnable": False
 })
 
-print("Camera initialized with true sensor ROI (IMX219).")
+print("Camera initialized with true sensor ROI")
 
 # -------------------- GPIO Setup --------------------
 GPIO.setmode(GPIO.BCM)
@@ -48,8 +48,8 @@ IN1 = 2
 IN2 = 3
 IN3 = 4
 IN4 = 17
-
 control_pins = [IN1, IN2, IN3, IN4]
+
 for pin in control_pins:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)

@@ -42,6 +42,8 @@ step_sequence = [
 ]
 
 STEPS_PER_REV = 2048
+STEPS_PER_SMALL_REV = 500
+STEPS_PER_HYPER_REV = 100
 STEP_DELAY = 0.0015
 
 # -------------------- Stepper Motor Function --------------------
@@ -61,7 +63,9 @@ img_count = 1
 print("Commands:")
 print(" - on / off     => Laser control")
 print(" - pic            => Take photo")
-print(" - cw / ccw     => Rotate motor clockwise / counterclockwise")
+print(" - cw / ccw     => Rotate motor clockwise / counterclockwise 2048 steps")
+print(" - cws / ccws     => Rotate motor clockwise / counterclockwise 500 steps")
+print(" - cwsh / ccwsh     => Rotate motor clockwise / counterclockwise 100 steps")
 print(" - exit           => Exit program")
 
 try:
@@ -84,12 +88,28 @@ try:
             img_count += 1
 
         elif cmd == "cw":
-            print("Rotating clockwise...")
+            print("Rotating clockwise 2048 steps...")
             move_motor(STEPS_PER_REV, direction=1)
 
+        elif cmd == "cws":
+            print("Rotating clockwise 500 steps...")
+            move_motor(STEPS_PER_SMALL_REV, direction=1)
+
+        elif cmd == "cwsh":
+            print("Rotating clockwise 100 steps...")
+            move_motor(STEPS_PER_HYPER_REV, direction=1)
+
         elif cmd == "ccw":
-            print("Rotating counterclockwise...")
+            print("Rotating counterclockwise 2048 steps...")
             move_motor(STEPS_PER_REV, direction=-1)
+
+        elif cmd == "ccws":
+            print("Rotating counterclockwise 500 steps...")
+            move_motor(STEPS_PER_SMALL_REV, direction=-1)
+
+        elif cmd == "ccwsh":
+            print("Rotating counterclockwise 100 steps...")
+            move_motor(STEPS_PER_HYPER_REV, direction=-1)
 
         elif cmd == "exit":
             print("Exiting program...")
